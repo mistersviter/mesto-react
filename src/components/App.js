@@ -1,33 +1,14 @@
-import logo from './images/logo.svg';
-import './index.css';
+import '../index.css';
+import Header from './Header';
+import Main from './Main';
+import Footer from './Footer';
 
 function App() {
   return (
     <div className="page">
-      <header className="header page__header">
-        <img src={logo} alt="лого" className="logo"/>
-      </header> 
-      <main className="main">
-      <section className="profile page__profile">
-        <div className="profile__avatar-wrapper">
-          <img src="#" alt="аватар" className="profile__avatar" />
-          <button type="button" aria-label="Изменить аватар" className="profile__avatar-change-button"></button>
-        </div>
-        <div className="profile__info">
-          <h1 className="profile__title"></h1>
-          <button type="button" aria-label="Редактировать профиль" className="button profile__edit-profile-button"></button>
-          <p className="profile__description"></p>        
-        </div>
-        <button type="button" aria-label="Добавить карточку" className="button profile__add-card-button"></button>
-      </section>
-      <section className="places page__places">
-        <ul className="places__cards">
-        </ul>
-      </section>
-      </main> 
-      <footer className="footer">
-        <p className="footer__copyright">© 2022 Mesto Russia</p>
-      </footer>
+      <Header />
+      <Main />
+      <Footer />      
       <div className="popup popup_type_change-avatar">
         <div className="popup__container">
           <button type="button" aria-label="Закрыть" className="popup__close-button"></button>
