@@ -8,7 +8,8 @@ import ImagePopup from './ImagePopup';
 
 function App() {
   React.useEffect(() => {
-    document.title = "mesto-react"
+    document.title = "mesto-react";
+    document.body.classList.add('page');
   }, [])
 
   const [isEditAvatarPopupOpen, setEditAvatarPopupOpen] = React.useState(false);
@@ -34,7 +35,7 @@ function App() {
   }
 
   return (
-    <div className="page">
+    <>
       <Header />
       <Main
         onEditAvatar={handleEditAvatarClick}
@@ -102,7 +103,7 @@ function App() {
         onClose={closeAllPopups}
       />
       <ImagePopup />         
-  </div>
+  </>
   );
 }
 
