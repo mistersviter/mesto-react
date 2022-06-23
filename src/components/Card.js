@@ -1,8 +1,13 @@
 import React from "react";
 
 function Card(props) {
+
+  function handleClick() {
+    props.onCardClick(props.card);
+  }
+
   return (
-    <li className="card">
+    <li className="card" onClick={handleClick}>
       <img src={props.card.link} alt={props.card.name} className="card__image" />
       <div className="card__info">
         <h2 className="card__title">{props.card.name}</h2>
