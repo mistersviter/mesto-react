@@ -2,6 +2,7 @@
   "name": "mesto-react",
   "author": "Tarabrin Evgeniy",
   "description": "Проект: Место-реакт",
+  "homepage": "https://mistersviter.github.io",
   "version": "0.1.0",
   "private": true,
   "dependencies": {
