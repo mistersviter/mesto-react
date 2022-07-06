@@ -1,20 +1,18 @@
 import React from "react";
+import { CurrentUserContext } from "../contexts/CurrentUserContext";
 import api from "../utils/Api";
 import Card from "./Card";
 
 function Main(props) {
-  const [userName, setUserName] = React.useState("");
-  const [userDescription, setUserDescription] = React.useState("");
-  const [userAvatar, setUserAvatar] = React.useState("");
   const [cards, setCards] = React.useState([]);
+
+  const currentUser = React.useContext(CurrentUserContext);
 
   React.useEffect(() => {
     api
       .getInitialData()
       .then(([cardsData, userData]) => {
-        setUserName(userData.name);
-        setUserDescription(userData.about);
-        setUserAvatar(userData.avatar);
+        //Юзердату не забудь убрать
         setCards(cardsData);
       })
       .catch((err) => console.log(err));
@@ -23,7 +21,11 @@ function Main(props) {
     <main className="main">
       <section className="profile page__profile">
         <div className="profile__avatar-wrapper">
-          <img src={userAvatar} alt="аватар" className="profile__avatar" />
+          <img
+            src={currentUser.avatar}
+            alt="аватар"
+            className="profile__avatar"
+          />
           <button
             type="button"
             aria-label="Изменить аватар"
@@ -32,14 +34,14 @@ function Main(props) {
           ></button>
         </div>
         <div className="profile__info">
-          <h1 className="profile__title">{userName}</h1>
+          <h1 className="profile__title">{currentUser.name}</h1>
           <button
             type="button"
             aria-label="Редактировать профиль"
             className="button profile__edit-profile-button"
             onClick={props.onEditProfile}
           ></button>
-          <p className="profile__description">{userDescription}</p>
+          <p className="profile__description">{currentUser.about}</p>
         </div>
         <button
           type="button"

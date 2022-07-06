@@ -15,6 +15,7 @@
 @import url(./blocks/card/__like-container/card__like-container.css);
 @import url(./blocks/card/__like-counter/card__like-counter.css);
 @import url(./blocks/card/__delete-button/card__delete-button.css);
+@import url(./blocks/card/__delete-button/_hidden/card__delete-button_hidden.css);
 @import url(./blocks/profile/profile.css);
 @import url(./blocks/profile/__avatar-wrapper/profile__avatar-wrapper.css);
 @import url(./blocks/profile/__avatar/profile__avatar.css);
