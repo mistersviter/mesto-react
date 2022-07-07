@@ -10,13 +10,27 @@ function Main(props) {
 
   React.useEffect(() => {
     api
-      .getInitialData()
-      .then(([cardsData, userData]) => {
-        //Юзердату не забудь убрать
+      .getInitialCards()
+      .then((cardsData) => {
         setCards(cardsData);
       })
       .catch((err) => console.log(err));
   }, []);
+
+  function handleCardLike(card) {
+    const isLiked = card.likes.some((i) => i._id === currentUser._id);
+
+    api.changeLikeCardStatus(card._id, isLiked).then((newCard) => {
+      setCards((state) => state.map((c) => (c._id === card._id ? newCard : c)));
+    });
+  }
+
+  function handleCardDelete(card) {
+    api.deleteUserCard(card._id).then(() => {
+      setCards((cards) => cards.filter((c) => c._id !== card._id));
+    });
+  }
+
   return (
     <main className="main">
       <section className="profile page__profile">
@@ -53,7 +67,13 @@ function Main(props) {
       <section className="places page__places">
         <ul className="places__cards">
           {cards.map((card) => (
-            <Card key={card._id} card={card} onCardClick={props.onCardClick} />
+            <Card
+              key={card._id}
+              card={card}
+              onCardClick={props.onCardClick}
+              onCardLike={handleCardLike}
+              onCardDelete={handleCardDelete}
+            />
           ))}
         </ul>
       </section>
