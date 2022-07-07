@@ -5,6 +5,8 @@ import Main from "./Main";
 import Footer from "./Footer";
 import PopupWithForm from "./PopupWithForm";
 import ImagePopup from "./ImagePopup";
+import EditProfilePopup from "./EditProfilePopup";
+import EditAvatarPopup from "./EditAvatarPopup";
 import api from "../utils/Api";
 import { CurrentUserContext } from "../contexts/CurrentUserContext";
 
@@ -53,6 +55,26 @@ function App() {
     setSelectedCard({ name: "", link: "" });
   }
 
+  function handleUpdateUser(newData) {
+    api
+      .updateUserInfo(newData)
+      .then((newUserInfo) => {
+        setCurrentUser(newUserInfo);
+        closeAllPopups();
+      })
+      .catch((err) => console.log(err));
+  }
+
+  function handleUpdateAvatar(newData) {
+    api
+      .updateUserAvatar(newData)
+      .then((newUserInfo) => {
+        setCurrentUser(newUserInfo);
+        closeAllPopups();
+      })
+      .catch((err) => console.log(err));
+  }
+
   return (
     <CurrentUserContext.Provider value={currentUser}>
       <Header />
@@ -66,60 +88,17 @@ function App() {
 
       <Footer />
 
-      <PopupWithForm
-        name="change-avatar"
-        title="Обновить аватар"
-        buttonText="Сохранить"
+      <EditAvatarPopup
         isOpen={isEditAvatarPopupOpen}
         onClose={closeAllPopups}
-      >
-        <label className="popup__form-field">
-          <input
-            id="avatar-image-input"
-            type="url"
-            className="popup__input popup__input_type_avatar-image"
-            name="avatar"
-            placeholder="Ссылка на картинку"
-            required
-          />
-          <span className="popup__input-error avatar-image-input-error"></span>
-        </label>
-      </PopupWithForm>
+        onUpdateAvatar={handleUpdateAvatar}
+      />
 
-      <PopupWithForm
-        name="edit-profile"
-        title="Редактировать профиль"
-        buttonText="Сохранить"
+      <EditProfilePopup
         isOpen={isEditProfilePopupOpen}
         onClose={closeAllPopups}
-      >
-        <label className="popup__form-field">
-          <input
-            id="name-input"
-            type="text"
-            className="popup__input popup__input_type_name"
-            name="name"
-            placeholder="Имя"
-            minLength="2"
-            maxLength="40"
-            required
-          />
-          <span className="popup__input-error name-input-error"></span>
-        </label>
-        <label className="popup__form-field">
-          <input
-            id="description-input"
-            type="text"
-            className="popup__input popup__input_type_description"
-            name="about"
-            placeholder="О себе"
-            minLength="2"
-            maxLength="200"
-            required
-          />
-          <span className="popup__input-error description-input-error"></span>
-        </label>
-      </PopupWithForm>
+        onUpdateUser={handleUpdateUser}
+      />
 
       <PopupWithForm
         name="add-card"
